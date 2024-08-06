@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import '../node_modules/reset-css/sass/_reset.scss';
+
+@import './styles/common.scss';
+@import './styles/dialogs.scss';
+@import './styles/fonts.scss';
+@import './styles/variables.scss';
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: $background-color;
+	font-size: 16px;
+}
+
+h1 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	color: $text-primary-color;
+}
+
+h2 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 28px;
+	color: $text-primary-color;
+}
+
+p, span {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #D7E1ED;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+:-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+::-webkit-scrollbar-button{
+	display: none;
+}

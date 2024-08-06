@@ -1,0 +1,47 @@
+// Common styles
+@import './variables.scss';
+
+// Styles for buttons
+.btn {
+	background: none;
+	background-color: $button-secondary-primary-color;
+
+	border: none;
+	border-radius: 37px;
+
+	height: 53px;
+	padding: 16px 22px;
+
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 18px;
+	color: $text-primary-color;
+
+	cursor: pointer;
+
+	&.btn-primary {
+		background-color: $button-primary-color;
+		color: $text-light-color;
+
+		&:hover {
+			background-color: $button-primary-hover-color;
+		}
+
+		&:active {
+			background-color: $button-primary-active-color;
+		}
+
+		&:disabled {
+			background-color: $button-primary-disabled-color;
+			cursor: unset;
+		}
+	}
+
+	&:hover {
+		background-color: $button-secondary-hover-color;
+	}
+
+	&:active {
+		background-color: $button-secondary-active-color;
+	}
+}

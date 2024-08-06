@@ -1,0 +1,77 @@
+@import '../../../../../styles/variables.scss';
+
+:host {
+	position: relative;
+}
+
+.custom-checkbox {
+	display: inline-block;
+	cursor: pointer;
+	user-select: none;
+}
+
+.custom-checkbox input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 14px;
+	width: 14px;
+	border: 2px solid $border-checkbox-color;
+	border-radius: 2px;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+	background-color: $checkbox-color;
+	border: none;
+	width: 18px;
+	height: 18px;
+}
+
+.custom-checkbox input:indeterminate ~ .checkmark {
+	background-color: $checkbox-color;
+	border: none;
+	width: 18px;
+	height: 18px;
+}
+
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+	display: block;
+}
+
+.custom-checkbox input:indeterminate ~ .checkmark:after {
+	display: block;
+}
+
+.custom-checkbox .checkmark:after {
+	left: 6px;
+	top: 2px;
+	width: 4px;
+	height: 9px;
+	border: solid $light-background-color;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
+
+.custom-checkbox input:indeterminate ~ .checkmark:after {
+	width: 10px;
+	height: 2px;
+	border: none;
+	background-color: $light-background-color;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

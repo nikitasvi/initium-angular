@@ -1,27 +1,31 @@
-# InitiumAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.1.
+# Тестовое задание Initium 
+Реализация тестового задан на Angular v16. Реализован как основной функционал, так и "Бонусные задания".
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Языки программирования / фреймворки
+Angular, Typescript, HTML, SCSS
 
-## Code scaffolding
+## Дополнительные библиотеки
+- reset.css - нужна для сброса стилей, чтобы на всех браузерах контент выглядел одинаково
+- uuidv4 - нужна для генерации уникальных id для клиентов, что облегчает работу с моделью клиентов
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Как запустить
 
-## Build
+Склонировать проект с помощью команды
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+~~~bash  
+    git clone https://github.com/nikitasvi/test-task-initium
+~~~
 
-## Running unit tests
+Установить необходимые зависимости
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+~~~bash  
+    npm install
+~~~
 
-## Running end-to-end tests
+Запустить проект с помощью команды
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+~~~bash  
+    npm run start
+~~~

@@ -1,0 +1,8 @@
+<label class="custom-checkbox">
+	<input	type="checkbox" 
+			[(ngModel)]="checked" 
+			(change)="onChange()" 
+			[indeterminate]="indeterminate" 
+			(click)="onClick($event)"/>
+	<span class="checkmark"></span>
+</label>

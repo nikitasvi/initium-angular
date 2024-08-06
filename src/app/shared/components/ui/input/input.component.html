@@ -1,0 +1,15 @@
+<div class="form-control" [ngClass]="getClassNames()">
+	<input	[type]="type"
+			[attr.name]="name"
+			[attr.id]="name"
+			[formControl]="control"
+			(focus)="onFocus()"
+			(blur)="onBlur()"
+			[attr.disabled]="disabled"/>
+	<label [attr.for]="name">{{ label }}</label>
+</div>
+<div class="error-message">
+	<div *ngIf="control.invalid && control.touched">
+	{{ getErrorMessage() }}
+	</div>
+</div>

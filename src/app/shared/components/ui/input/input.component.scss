@@ -1,0 +1,81 @@
+@import '../../../../../styles/variables.scss';
+
+.form-control {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+
+	label {
+		color: $border-color;
+		position: absolute;
+		left: 16px;
+		top: 50%;
+		transform: translateY(-50%);
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 22px;
+		letter-spacing: 0.25px;
+		pointer-events: none;
+		transition: 0.2s;
+	}
+
+	input {
+		height: 40px;
+		border: 1px solid $border-color;
+		border-radius: 4px;
+		outline: none;
+		padding: 7px 0 7px 16px;
+		font-size: 16px;
+		line-height: 22px;
+	}
+
+	&.focused input {
+		border: 1px solid $border-primary-color;
+	}
+
+	&.error input {
+		border: 1px solid $border-error-color;
+	}
+
+	&.filled input {
+		border: 1px solid $border-filled-color;
+	}
+
+	&.error label,
+	&.focused label,
+	&.filled label {
+		top: 0;
+		left: 16px;
+		font-size: 12px;
+		line-height: 16px;
+		letter-spacing: 0.4px;
+		background-color: $light-background-color;
+		padding: 0 4px;
+	}
+
+	&.error label {
+		color: $border-error-color;
+	}
+
+	&.focused label {
+		color: $border-primary-color;
+	}
+
+	&.filled label {
+		color: $border-filled-color;
+	}
+}
+
+.error-message {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	height: 20px;
+	padding: 0 16px;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.4px;
+	color: $border-error-color;
+	text-align: right;
+}
