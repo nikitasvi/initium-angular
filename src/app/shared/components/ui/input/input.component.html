@@ -5,7 +5,8 @@
 			[formControl]="control"
 			(focus)="onFocus()"
 			(blur)="onBlur()"
-			[attr.disabled]="disabled"/>
+			[attr.disabled]="disabled"
+			autocomplete="off"/>
 	<label [attr.for]="name">{{ label }}</label>
 </div>
 <div class="error-message">
