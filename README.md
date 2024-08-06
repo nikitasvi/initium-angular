@@ -15,7 +15,7 @@ Angular, Typescript, HTML, SCSS
 Склонировать проект с помощью команды
 
 ~~~bash  
-    git clone https://github.com/nikitasvi/test-task-initium
+    git clone https://github.com/nikitasvi/initium-angular
 ~~~
 
 Установить необходимые зависимости
