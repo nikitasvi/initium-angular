@@ -4,6 +4,9 @@ import { ClientListComponent } from './components/client-list/client-list.compon
 export const routes: Routes = [
 	{
 		path: '',
-		component: ClientListComponent
+		component: ClientListComponent,
+		data: {
+			title: 'Клиенты'
+		}
 	}
 ];

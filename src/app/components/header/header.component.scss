@@ -1,0 +1,9 @@
+@import '../../../styles/variables.scss';
+
+.title {
+	margin: 15px 12px 26px 12px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	color: $text-title-color;
+}

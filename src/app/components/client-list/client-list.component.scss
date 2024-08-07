@@ -1,119 +1,107 @@
 @import '../../../styles/variables.scss';
 
-.container {
-	padding: 16px;
+.clients-list {
+	background-color: $light-background-color;
+	border-radius: 20px;
+	overflow-x: hidden;
+	
+	.toolbar {
+		padding: 10px 15px;
+		height: 36px;
 
-	.title {
-		margin: 15px 12px 26px 12px;
-		height: 24px;
 		display: flex;
 		align-items: center;
-		color: $text-title-color;
+		column-gap: 8px;
+
+		.icon {
+			height: 20px;
+			padding: 8px;
+			color: $button-toolbar-icon-color;
+			cursor: pointer;
+
+			&:hover {
+				background-color: $button-toolbar-hover-color;
+				border-radius: 100px;
+			}
+
+			&:active {
+				background-color: $button-toolbar-active-color;
+				border-radius: 100px;
+			}
+
+			&:disabled, &.disabled {
+				pointer-events: none;
+				color: $button-toolbar-disable-color;
+			}
+		}
+	}
+	
+	.clients {
+		overflow-y: auto;
+		overflow-x: hidden;
+		// TODO: Move heights, margins and paddings to variables; or find another approach
+		// 24 - title height
+		// 15 - title margin
+		// 26 - title margin
+		// 32 - container paddings
+		// 56 - toolbar height
+		// 48 - header height
+		max-height: calc(100vh - 24px - 15px - 26px - 32px - 56px - 48px);
 	}
 
-	.clients-list {
-		background-color: $light-background-color;
-		border-radius: 20px;
-		overflow-x: hidden;
-		
-		.toolbar {
-			padding: 10px 15px;
-			height: 36px;
+	.client-item {
+		display: grid;
+		grid-template-columns: 18px repeat(4, 280px);
+		align-items: center;
+		column-gap: 12px;
+		min-height: 47px;
+		padding: 0 24px;
 
-			display: flex;
-			align-items: center;
-			column-gap: 8px;
-
-			.icon {
-				height: 20px;
-				padding: 8px;
-				color: $button-toolbar-icon-color;
-				cursor: pointer;
-
-				&:hover {
-					background-color: $button-toolbar-hover-color;
-					border-radius: 100px;
-				}
-
-				&:active {
-					background-color: $button-toolbar-active-color;
-					border-radius: 100px;
-				}
-
-				&:disabled, &.disabled {
-					pointer-events: none;
-					color: $button-toolbar-disable-color;
-				}
+		&-header {
+			span {
+				color: $text-header-color;
+				font-size: 12px;
+				line-height: 16px;
+				font-weight: 500;
+				letter-spacing: 0.2px;
 			}
 		}
-		
-		.clients {
-			overflow-y: auto;
-			overflow-x: hidden;
-			// TODO: Move heights, margins and paddings to variables; or find another approach
-			// 24 - title height
-			// 15 - title margin
-			// 26 - title margin
-			// 32 - container paddings
-			// 56 - toolbar height
-			// 48 - header height
-			max-height: calc(100vh - 24px - 15px - 26px - 32px - 56px - 48px);
+
+		&-selected {
+			background-color: $item-selected-color;
 		}
 
-		.client-item {
-			display: grid;
-			grid-template-columns: 18px repeat(4, 280px);
-			align-items: center;
-			column-gap: 12px;
-			min-height: 47px;
-			padding: 0 24px;
+		&:hover:not(&-header) {
+			background-color: $item-hover-color;
+		}
 
-			&-header {
-				span {
-					color: $text-header-color;
-					font-size: 12px;
-					line-height: 16px;
-					font-weight: 500;
-					letter-spacing: 0.2px;
-				}
-			}
+		.column {
+			width: 100%;
+			word-wrap: break-word;
 
-			&-selected {
-				background-color: $item-selected-color;
-			}
+			span {
+				width: fit-content;
 
-			&:hover:not(&-header) {
-				background-color: $item-hover-color;
-			}
+				&.clickable {
+					cursor: pointer;
 
-			.column {
-				width: 100%;
-				word-wrap: break-word;
-
-				span {
-					width: fit-content;
-
-					&.clickable {
-						cursor: pointer;
-
-						&.editable {
-							&:hover {
-								color: $text-hover-color;
-								text-decoration: underline;
-							}
+					&.editable {
+						&:hover {
+							color: $text-hover-color;
+							text-decoration: underline;
 						}
 					}
 				}
 			}
-
-			.align-end {
-				display: flex;
-				justify-content: end;
-			}
-		} 
-
-		.client-item:not(&-header) {
-			border-top: 1px solid rgba($border-row-color, 0.16);
 		}
+
+		.align-end {
+			display: flex;
+			justify-content: end;
+		}
+	} 
+
+	.client-item:not(&-header) {
+		border-top: 1px solid rgba($border-row-color, 0.16);
 	}
 }

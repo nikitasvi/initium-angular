@@ -135,9 +135,9 @@ export class ClientListComponent implements OnInit {
 	*/
 	public onSortChanged(event: { field: PropertyType, direction: 'asc' | 'desc' }) {
 		this.sortedClients = [...this.clients].sort((a, b) => {
-		  if (a[event.field] < b[event.field]) return event.direction === 'asc' ? -1 : 1;
-		  if (a[event.field] > b[event.field]) return event.direction === 'asc' ? 1 : -1;
-		  return 0;
+			if (a[event.field] < b[event.field]) return event.direction === 'asc' ? -1 : 1;
+			if (a[event.field] > b[event.field]) return event.direction === 'asc' ? 1 : -1;
+			return 0;
 		});
 	}
 
@@ -150,10 +150,10 @@ export class ClientListComponent implements OnInit {
 
 	public handleHeaderCheckboxChange(event: { checked: boolean, indeterminate: boolean }): void {
 		if (this.isIndeterminate) {
-		  this.clearSelections();
+			this.clearSelections();
 		} else {
-		  this.allSelected = event.checked;
-		  this.sortedClients.forEach(client => client.selected = this.allSelected);
+			this.allSelected = event.checked;
+			this.sortedClients.forEach(client => client.selected = this.allSelected);
 		}
 		this.updateHeaderCheckboxState();
 	}
