@@ -3,7 +3,7 @@
 .clients-list {
 	background-color: $light-background-color;
 	border-radius: 20px;
-	overflow-x: hidden;
+	overflow-x: auto;
 	
 	.toolbar {
 		padding: 10px 15px;
@@ -37,6 +37,7 @@
 	}
 	
 	.clients {
+		width: fit-content;
 		overflow-y: auto;
 		overflow-x: hidden;
 		// TODO: Move heights, margins and paddings to variables; or find another approach
@@ -51,7 +52,7 @@
 
 	.client-item {
 		display: grid;
-		grid-template-columns: 18px repeat(4, 280px);
+		grid-template-columns: 18px repeat(4, minmax(150px, 280px));
 		align-items: center;
 		column-gap: 12px;
 		min-height: 47px;
@@ -80,6 +81,7 @@
 			word-wrap: break-word;
 
 			span {
+				word-break: break-word;
 				width: fit-content;
 
 				&.clickable {
