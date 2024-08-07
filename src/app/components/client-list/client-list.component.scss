@@ -37,9 +37,9 @@
 	}
 	
 	.clients {
-		width: fit-content;
 		overflow-y: auto;
-		overflow-x: hidden;
+		min-width: fit-content;
+		width: 100%;
 		// TODO: Move heights, margins and paddings to variables; or find another approach
 		// 24 - title height
 		// 15 - title margin
@@ -52,13 +52,16 @@
 
 	.client-item {
 		display: grid;
-		grid-template-columns: 18px repeat(4, minmax(150px, 280px));
+		grid-template-columns: 18px repeat(4, 280px);
 		align-items: center;
 		column-gap: 12px;
 		min-height: 47px;
 		padding: 0 24px;
 
 		&-header {
+			overflow-y: auto;
+			min-width: fit-content;
+			
 			span {
 				color: $text-header-color;
 				font-size: 12px;

@@ -1,16 +1,16 @@
 <div class="clients-list">
 	<div class="toolbar">
 		<add-icon class="icon" (click)="openAddClientDialog()"></add-icon>
-		<delete-icon	class="icon" 
-						[class.disabled]="selectedClients.length === 0"
-						(click)="openDeleteClientDialog()">
+		<delete-icon class="icon" 
+					[class.disabled]="selectedClients.length === 0"
+					(click)="openDeleteClientDialog()">
 		</delete-icon>
 	</div>
 	<div class="client-item client-item-header">
 		<div class="column">
-			<checkbox 	[checked]="allSelected"
-						[indeterminate]="isIndeterminate"
-						(stateChange)="handleHeaderCheckboxChange($event)">
+			<checkbox [checked]="selection.hasValue() && isAllSelected()"
+					[indeterminate]="selection.hasValue() && !isAllSelected()"
+					(checkedChange)="masterToggle()">
 			</checkbox>
 		</div>
 		<div class="column">
@@ -28,16 +28,16 @@
 	</div>
 	<div class="clients">
 		<ng-container *ngFor="let client of sortedClients">
-			<ng-container *ngTemplateOutlet="row; context: { client: client }" ></ng-container>
+			<ng-container *ngTemplateOutlet="row; context: { client: client }"></ng-container>
 		</ng-container>
 	</div>
 </div>
 
 <ng-template #row let-client="client">
-	<div class="client-item" [ngClass]="{'client-item-selected': client.selected}">
+	<div class="client-item" [ngClass]="{'client-item-selected': selection.isSelected(client)}">
 		<div class="column">
-			<checkbox 	[(checked)]="client.selected"
-						(checkedChange)="updateHeaderCheckboxState()">
+			<checkbox [checked]="selection.isSelected(client)"
+					(checkedChange)="selection.toggle(client)">
 			</checkbox>
 		</div>
 		<div class="column">

@@ -7,13 +7,14 @@ import { CheckboxComponent } from '../../shared/components/ui/checkbox/checkbox.
 import { MatDialog } from '@angular/material/dialog';
 import { ClientDialogComponent } from '../../shared/components/dialogs/client-dialog/client-dialog.component';
 import { ClientsService } from '../../services/clients.service';
-import { map, of, switchMap, take, takeWhile, tap } from 'rxjs';
+import { map, of, switchMap, take } from 'rxjs';
 import { Client } from '../../models/client.model';
 import { DeleteDialogComponent } from '../../shared/components/dialogs/delete-dialog/delete-dialog.component';
 import { SortDirective } from '../../directives/sort.directive';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
-	standalone: true,
+standalone: true,
 	imports: [
 		CommonModule,
 		FormsModule,
@@ -30,11 +31,9 @@ export class ClientListComponent implements OnInit {
 	private dialog = inject(MatDialog);
 	private clientsService = inject(ClientsService);
 
-	public clients: SelectableClient[] = [];
-	public sortedClients: SelectableClient[] = [];
-
-	public allSelected: boolean = false;
-	public isIndeterminate: boolean = false;
+	public clients: Client[] = [];
+	public sortedClients: Client[] = [];
+	public selection = new SelectionModel<Client>(true, []);
 
 	public ngOnInit(): void {
 		this.clientsService.clients$
@@ -44,12 +43,10 @@ export class ClientListComponent implements OnInit {
 					if (clients.length === 0) {
 						return this.clientsService.getClients()
 							.pipe(
-								map((clients) => {
-									return clients.map((client) => new SelectableClient(client))
-								}),
+								map((clients) => clients)
 							);
 					} else {
-						return of(clients.map((client) => new SelectableClient(client)));
+						return of(clients);
 					}
 				})
 			)
@@ -63,13 +60,13 @@ export class ClientListComponent implements OnInit {
 		this.clientsService.clients$
 			.pipe(take(1))
 			.subscribe((clients) => {
-				this.clients = clients.map((client) => new SelectableClient(client));
+				this.clients = clients;
 				this.sortedClients = [...this.clients];
 			});
 	}
 
-	public get selectedClients(): SelectableClient[] {
-		return this.sortedClients.filter((client) => client.selected);
+	public get selectedClients(): Client[] {
+		return this.selection.selected;
 	}
 
 	/*
@@ -93,7 +90,7 @@ export class ClientListComponent implements OnInit {
 			})
 	}
 
-	public openEditClientDialog(client: SelectableClient): void {
+	public openEditClientDialog(client: Client): void {
 		const dialogRef = this.dialog.open(ClientDialogComponent, {
 			width: '448px',
 			height: '593px',
@@ -130,9 +127,9 @@ export class ClientListComponent implements OnInit {
 			})
 	}
 
-	/*
-	// Work with sorting clients
-	*/
+/*
+// Work with sorting clients
+*/
 	public onSortChanged(event: { field: PropertyType, direction: 'asc' | 'desc' }) {
 		this.sortedClients = [...this.clients].sort((a, b) => {
 			if (a[event.field] < b[event.field]) return event.direction === 'asc' ? -1 : 1;
@@ -141,42 +138,22 @@ export class ClientListComponent implements OnInit {
 		});
 	}
 
-	/*
-	// Work with checkboxes
-	*/
-	public handleRowCheckboxChange(event: { checked: boolean, indeterminate: boolean }): void {
-		this.updateHeaderCheckboxState();
+/*
+// Work with checkboxes
+*/
+	public isAllSelected(): boolean {
+		const numSelected = this.selection.selected.length;
+		const numRows = this.sortedClients.length;
+		return numSelected === numRows;
 	}
 
-	public handleHeaderCheckboxChange(event: { checked: boolean, indeterminate: boolean }): void {
-		if (this.isIndeterminate) {
-			this.clearSelections();
+	public masterToggle(): void {
+		if (this.isAllSelected()) {
+			this.selection.clear();
 		} else {
-			this.allSelected = event.checked;
-			this.sortedClients.forEach(client => client.selected = this.allSelected);
+			this.selection.select(...this.sortedClients);
 		}
-		this.updateHeaderCheckboxState();
-	}
-	
-	public clearSelections(): void {
-		this.sortedClients.forEach(row => row.selected = false);
-		this.allSelected = false;
-		this.isIndeterminate = false;
-	}
-	
-	public updateHeaderCheckboxState(): void {
-		const selectedRows = this.sortedClients.filter(row => row.selected);
-		this.allSelected = selectedRows.length === this.sortedClients.length;
-		this.isIndeterminate = selectedRows.length > 0 && !this.allSelected;
 	}
 }
 
 export type PropertyType = 'name' | 'surname' | 'email' | 'phone';
-
-export class SelectableClient extends Client {
-	public selected: boolean = false;
-
-	constructor(client: Client) {
-		super(client.name, client.surname, client.email, client.phone, client.id);
-	}
-}

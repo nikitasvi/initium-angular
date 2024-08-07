@@ -2,9 +2,9 @@ import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogClose, MatDialogRef  } from '@angular/material/dialog';
-import { SelectableClient } from '../../../../components/client-list/client-list.component';
 import { InputComponent } from "../../ui/input/input.component";
 import { FormControlPipe } from '../../../../pipes/form-control.pipe';
+import { Client } from '../../../../models/client.model';
 
 @Component({
 	standalone: true,
@@ -37,13 +37,13 @@ export class ClientDialogComponent {
 			return;
 		}
 
-		const client: SelectableClient = new SelectableClient({
-			name: this.f['firstName'].value,
-			surname: this.f['lastName'].value,
-			email: this.f['email'].value,
-			phone: this.f['phone'].value,
-			id: this.data?.client?.id
-		});
+		const client: Client = new Client(
+			this.f['firstName'].value,
+			this.f['lastName'].value,
+			this.f['email'].value,
+			this.f['phone'].value,
+			this.data?.client?.id
+		);
 
 		return this.dialogRef.close(client);
 	}
