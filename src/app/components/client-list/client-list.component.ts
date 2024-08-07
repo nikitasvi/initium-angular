@@ -56,7 +56,16 @@ export class ClientListComponent implements OnInit {
 			.subscribe((clients) => {
 				this.clients = clients;
 				this.sortedClients = [...clients];
-			})
+			});
+	}
+
+	private loadClients(): void {
+		this.clientsService.clients$
+			.pipe(take(1))
+			.subscribe((clients) => {
+				this.clients = clients.map((client) => new SelectableClient(client));
+				this.sortedClients = [...this.clients];
+			});
 	}
 
 	public get selectedClients(): SelectableClient[] {
@@ -79,8 +88,7 @@ export class ClientListComponent implements OnInit {
 			.subscribe((client) => {
 				if (client) {
 					this.clientsService.addClient(client);
-					this.clients = [...this.clients, new SelectableClient(client)];
-					this.sortedClients = [...this.clients];
+					this.loadClients();
 				}
 			})
 	}
@@ -99,13 +107,7 @@ export class ClientListComponent implements OnInit {
 			.subscribe((client) => {
 				if (client) {
 					this.clientsService.updateClient(client);
-
-					this.clientsService.clients$
-						.pipe(take(1))
-						.subscribe((clients) => {
-							this.clients = clients.map((client) => new SelectableClient(client));
-							this.sortedClients = [...this.clients];
-						})
+					this.loadClients();
 				}
 			})
 	}
@@ -120,18 +122,11 @@ export class ClientListComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed()
-			.subscribe(() => {
-                const selectedClientIds = this.selectedClients.map(client => client.id ?? '');
-                selectedClientIds.forEach((clientId) => {
-                    this.clientsService.deleteClient(clientId);
-                });
-
-                this.clientsService.clients$
-                    .pipe(take(1))
-                    .subscribe((updatedClients) => {
-                        this.clients = updatedClients.map(client => new SelectableClient(client));
-                        this.sortedClients = [...this.clients];
-                    });
+			.subscribe((result) => {
+				if (result) {
+					this.selectedClients.forEach(client => this.clientsService.deleteClient(client.id ?? ''));
+					this.loadClients();
+				}
 			})
 	}
 
